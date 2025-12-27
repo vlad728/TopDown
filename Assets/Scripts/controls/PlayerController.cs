@@ -23,9 +23,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * vertical * speed);
         transform.Translate(Vector3.right * Time.deltaTime * horizontal * speed);
 
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.up = mousePosition - new Vector2(transform.position.x, transform.position.y);
 
     }
 }
