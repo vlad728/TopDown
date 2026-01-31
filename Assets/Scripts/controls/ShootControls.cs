@@ -6,7 +6,7 @@ public class ShootControls : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    private float bulletVel = 20;
+    private float bulletVel = 70;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
