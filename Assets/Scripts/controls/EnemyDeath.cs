@@ -10,5 +10,6 @@ public class EnemyDeath : MonoBehaviour
             animator = GetComponent<Animator>();
         }
         animator.SetBool("death", true);
+        
     }
 }

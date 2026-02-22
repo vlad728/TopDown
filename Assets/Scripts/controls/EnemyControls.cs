@@ -17,6 +17,12 @@ public class EnemyControls : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<EnemyDeath>().KillEnemy();
+            Destroy(collision.gameObject.GetComponent<Rigidbody>());
+            collision.gameObject.GetComponent<Collider>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<PlayerController>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<ShootControls>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<AudioController>().enabled = false;
+            collision.gameObject.GetComponent <PlayerAim>().enabled = false;
         }
     }
 

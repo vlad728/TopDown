@@ -36,7 +36,7 @@ public class EnemyFOV : MonoBehaviour
         while (true)
         {
             yield return wait;
-            if (canSeePlayer)
+            if (canSeePlayer && agent.enabled == true)
             {
                 animator.SetBool("front", true);
                 agent.SetDestination(playerRef.transform.position);

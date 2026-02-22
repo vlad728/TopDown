@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private float speed = 5;
+    private float speed = 10;
     private float vertical;
     private float horizontal;
     private Vector3 mousePos;
