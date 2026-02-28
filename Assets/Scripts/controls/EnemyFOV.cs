@@ -12,6 +12,8 @@ public class EnemyFOV : MonoBehaviour
     public float angle;
 
     public GameObject playerRef;
+    public Transform[] wayPoints;
+    private int wayPointIndex = 0;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -24,9 +26,32 @@ public class EnemyFOV : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.SetDestination(wayPoints[wayPointIndex].position);
         playerRef = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
+        StartCoroutine(Stay());
         StartCoroutine(FOVRoutine());
+    }
+
+    private void Update()
+    {
+        if (transform.position.x == wayPoints[wayPointIndex].position.x && transform.position.z == wayPoints[wayPointIndex].position.z)
+        {
+            wayPointIndex++;
+            if (wayPointIndex >= wayPoints.Length)
+            {
+                wayPointIndex = 0;
+            }
+            StartCoroutine(Stay());
+        }
+    }
+
+    private IEnumerator Stay()
+    {
+        animator.SetBool("front", false);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("front", true);
+        agent.SetDestination(wayPoints[wayPointIndex].position);
     }
 
     private IEnumerator FOVRoutine()
