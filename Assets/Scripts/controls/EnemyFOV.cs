@@ -65,6 +65,7 @@ public class EnemyFOV : MonoBehaviour
             {
                 animator.SetBool("front", true);
                 agent.SetDestination(playerRef.transform.position);
+                StopCoroutine(Stay());
             }
             else
             {
@@ -97,5 +98,22 @@ public class EnemyFOV : MonoBehaviour
         }
         else if (canSeePlayer)
             canSeePlayer = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<EnemyDeath>().KillEnemy();
+            Destroy(collision.gameObject.GetComponent<Rigidbody>());
+            collision.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<PlayerController>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<ShootControls>().enabled = false;
+            collision.gameObject.transform.parent.gameObject.GetComponent<AudioController>().enabled = false;
+            collision.gameObject.GetComponent<PlayerAim>().enabled = false;
+            agent.SetDestination(wayPoints[wayPointIndex].position);
+            canSeePlayer = false;
+            StopCoroutine(FOVRoutine());
+        }
     }
 }

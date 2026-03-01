@@ -7,6 +7,7 @@ public class ShootControls : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     private float bulletVel = 70;
+    public GameObject soundPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +21,7 @@ public class ShootControls : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+            Instantiate(soundPrefab, transform.position, transform.rotation);
         }
     }
 
@@ -29,10 +31,6 @@ public class ShootControls : MonoBehaviour
         Vector3 targetPoint;
         if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 50))
         {
-            //if (hit.collider.CompareTag("Enemy"))
-            //{
-            //    Destroy(hit.collider.gameObject);
-            //}
             targetPoint = hit.point;
         }
         else
