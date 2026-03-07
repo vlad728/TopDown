@@ -13,6 +13,7 @@ public class EnemyFOV : MonoBehaviour
 
     public GameObject playerRef;
     public Transform[] wayPoints;
+    private Transform myTarget;
     private int wayPointIndex = 0;
 
     public LayerMask targetMask;
@@ -25,6 +26,7 @@ public class EnemyFOV : MonoBehaviour
 
     private void Start()
     {
+        myTarget = null;
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(wayPoints[wayPointIndex].position);
         playerRef = GameObject.FindGameObjectWithTag("Player");
@@ -35,14 +37,24 @@ public class EnemyFOV : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.x == wayPoints[wayPointIndex].position.x && transform.position.z == wayPoints[wayPointIndex].position.z)
+        if (myTarget == null)
         {
-            wayPointIndex++;
-            if (wayPointIndex >= wayPoints.Length)
+            if (transform.position.x == wayPoints[wayPointIndex].position.x && transform.position.z == wayPoints[wayPointIndex].position.z)
             {
-                wayPointIndex = 0;
+                wayPointIndex++;
+                if (wayPointIndex >= wayPoints.Length)
+                {
+                    wayPointIndex = 0;
+                }
+                StartCoroutine(Stay());
             }
-            StartCoroutine(Stay());
+        }
+        else
+        {
+            if (transform.position.x == myTarget.position.x && transform.position.z == myTarget.position.z)
+            {
+                StartCoroutine(SeekCoroutine());
+            }
         }
     }
 
@@ -98,6 +110,19 @@ public class EnemyFOV : MonoBehaviour
         }
         else if (canSeePlayer)
             canSeePlayer = false;
+    }
+
+    IEnumerator SeekCoroutine()
+    {
+        yield return new WaitForSeconds(3);
+        myTarget = null;
+        agent.SetDestination(wayPoints[wayPointIndex].position);
+    }
+
+    public void Seek(Transform target)
+    {
+        myTarget = target;
+        agent.SetDestination(myTarget.position);
     }
 
     private void OnCollisionEnter(Collision collision)
