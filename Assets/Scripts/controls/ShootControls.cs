@@ -8,6 +8,7 @@ public class ShootControls : MonoBehaviour
     public GameObject bulletPrefab;
     private float bulletVel = 70;
     public GameObject soundPrefab;
+    public Transform model;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,7 +22,7 @@ public class ShootControls : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
-            Instantiate(soundPrefab, transform.position, transform.rotation);
+            Instantiate(soundPrefab, model.position, model.rotation);
         }
     }
 

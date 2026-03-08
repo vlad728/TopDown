@@ -13,7 +13,7 @@ public class EnemyFOV : MonoBehaviour
 
     public GameObject playerRef;
     public Transform[] wayPoints;
-    private Transform myTarget;
+    public Transform myTarget;
     private int wayPointIndex = 0;
 
     public LayerMask targetMask;
@@ -63,7 +63,14 @@ public class EnemyFOV : MonoBehaviour
         animator.SetBool("front", false);
         yield return new WaitForSeconds(1);
         animator.SetBool("front", true);
-        agent.SetDestination(wayPoints[wayPointIndex].position);
+        if (myTarget == null)
+        {
+            agent.SetDestination(wayPoints[wayPointIndex].position);
+        }
+        else
+        {
+            agent.SetDestination(myTarget.position);
+        }
     }
 
     private IEnumerator FOVRoutine()
