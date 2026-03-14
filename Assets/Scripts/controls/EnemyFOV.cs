@@ -10,6 +10,7 @@ public class EnemyFOV : MonoBehaviour
     public float radius;
     [Range(0, 360)]
     public float angle;
+    private float keepDistance = 15f;
 
     public GameObject playerRef;
     public Transform[] wayPoints;
@@ -83,7 +84,31 @@ public class EnemyFOV : MonoBehaviour
             if (canSeePlayer && agent.enabled == true)
             {
                 animator.SetBool("front", true);
-                agent.SetDestination(playerRef.transform.position);
+                if (Vector3.Distance(transform.position, playerRef.transform.position) < keepDistance)
+                { 
+                    agent.updateRotation = false;
+                    //Vector3 direction = (playerRef.transform.position - transform.position).normalized;
+                    //direction.y = 0;
+                    //if (direction != Vector3.zero)
+                    //{
+                    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
+                    //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 250);
+                    //}
+                    transform.LookAt(playerRef.transform.position);
+                    Vector3 distanceToPlayer = transform.position - playerRef.transform.position;
+                    Vector3 retreatTarget = transform.position + distanceToPlayer.normalized * 2;
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(retreatTarget, out hit, 3, NavMesh.AllAreas))
+                    {
+                        agent.stoppingDistance = 0;
+                        agent.SetDestination(hit.position);
+                    }
+                }
+                else
+                {
+                    agent.stoppingDistance = keepDistance;
+                    agent.SetDestination(playerRef.transform.position);
+                }
                 StopCoroutine(Stay());
             }
             else
