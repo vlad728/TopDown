@@ -106,15 +106,6 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("front", true);
                 if (Vector3.Distance(transform.position, playerRef.transform.position) < keepDistance)
                 { 
-                    agent.updateRotation = false;
-                    //Vector3 direction = (playerRef.transform.position - transform.position).normalized;
-                    //direction.y = 0;
-                    //if (direction != Vector3.zero)
-                    //{
-                    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 250);
-                    //}
-                    transform.LookAt(playerRef.transform.position);
                     Vector3 distanceToPlayer = transform.position - playerRef.transform.position;
                     Vector3 retreatTarget = transform.position + distanceToPlayer.normalized * 2;
                     NavMeshHit hit;
@@ -123,19 +114,24 @@ public class EnemyController : MonoBehaviour
                         agent.stoppingDistance = 0;
                         agent.SetDestination(hit.position);
                     }
+                    StopCoroutine(Stay());
+                }
+                else if (Vector3.Distance(transform.position, playerRef.transform.position) == keepDistance)
+                {
+                    StartCoroutine(Stay());
                 }
                 else
                 {
                     agent.stoppingDistance = keepDistance;
                     agent.SetDestination(playerRef.transform.position);
+                    StopCoroutine(Stay());
                 }
-                StopCoroutine(Stay());
             }
             else
             {
                 FieldOfViewCheck();
             }
-       
+            
         }
     }
 
