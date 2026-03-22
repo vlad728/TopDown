@@ -18,6 +18,10 @@ public class EnemyController : MonoBehaviour
     public float angle;
     public float radius;
 
+    //Models
+    public GameObject model;
+    public GameObject model2;
+
     //Mapping
     public GameObject playerRef;
     public Transform[] wayPoints;
@@ -103,9 +107,14 @@ public class EnemyController : MonoBehaviour
             yield return wait;
             if (canSeePlayer && agent.enabled == true)
             {
+                model.GetComponent<ModelController>().player = playerRef.transform;
+                model.GetComponent<ModelController>().isActive = true;
+                model2.GetComponent<ModelController>().player = playerRef.transform;
+                model2.GetComponent<ModelController>().isActive = true;
                 animator.SetBool("front", true);
-                if (Vector3.Distance(transform.position, playerRef.transform.position) < keepDistance)
-                { 
+                if (Vector3.Distance(transform.position, playerRef.transform.position) <= keepDistance)
+                {
+                    //agent.updateRotation = false;
                     Vector3 distanceToPlayer = transform.position - playerRef.transform.position;
                     Vector3 retreatTarget = transform.position + distanceToPlayer.normalized * 2;
                     NavMeshHit hit;
