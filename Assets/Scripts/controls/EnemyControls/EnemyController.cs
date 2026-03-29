@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
     {
         myTarget = null;
         agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = true;
         agent.SetDestination(wayPoints[wayPointIndex].position);
         playerRef = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
@@ -111,30 +112,17 @@ public class EnemyController : MonoBehaviour
                 model.GetComponent<ModelController>().isActive = true;
                 model2.GetComponent<ModelController>().player = playerRef.transform;
                 model2.GetComponent<ModelController>().isActive = true;
-                animator.SetBool("front", true);
                 if (Vector3.Distance(transform.position, playerRef.transform.position) <= keepDistance)
                 {
-                    //agent.updateRotation = false;
-                    Vector3 distanceToPlayer = transform.position - playerRef.transform.position;
-                    Vector3 retreatTarget = transform.position + distanceToPlayer.normalized * 2;
-                    NavMeshHit hit;
-                    if (NavMesh.SamplePosition(retreatTarget, out hit, 3, NavMesh.AllAreas))
-                    {
-                        agent.stoppingDistance = 0;
-                        agent.SetDestination(hit.position);
-                    }
-                    StopCoroutine(Stay());
-                }
-                else if (Vector3.Distance(transform.position, playerRef.transform.position) == keepDistance)
-                {
-                    StartCoroutine(Stay());
+                    agent.ResetPath();
                 }
                 else
                 {
-                    agent.stoppingDistance = keepDistance;
                     agent.SetDestination(playerRef.transform.position);
-                    StopCoroutine(Stay());
                 }
+                //agent.stoppingDistance = keepDistance;
+                //agent.SetDestination(playerRef.transform.position);
+                StopCoroutine(Stay());
             }
             else
             {

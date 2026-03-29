@@ -16,8 +16,9 @@ public class ModelController : MonoBehaviour
     {
         if (isActive)
         {
-            Quaternion targetRot = Quaternion.LookRotation((player.position - transform.position).normalized);
-            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, targetRot, Time.deltaTime * 700);
+            //Quaternion targetRot = Quaternion.LookRotation((player.position - transform.position).normalized);
+            //gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, targetRot, Time.deltaTime * 700);
+            transform.LookAt(player);
         }
     }
 
