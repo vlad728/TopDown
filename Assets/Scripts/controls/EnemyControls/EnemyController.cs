@@ -18,6 +18,12 @@ public class EnemyController : MonoBehaviour
     public float angle;
     public float radius;
 
+    //Shooting
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+    private float bulletVel = 70;
+    private bool canShoot = true;
+
     //Models
     public GameObject model;
     public GameObject model2;
@@ -45,6 +51,41 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+
+        if(canSeePlayer && agent.enabled)
+        {
+            Vector3 direction = (playerRef.transform.position - transform.position).normalized;
+            direction.y = 0f;
+
+            float distance = Vector3.Distance(transform.position, playerRef.transform.position);
+
+            agent.updateRotation = false;
+            if (direction != Vector3.zero)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            }
+
+            if (distance < keepDistance)
+            {
+                Vector3 retreatDestination = transform.position - direction * keepDistance;
+                agent.SetDestination(retreatDestination);
+            }
+            else if (distance > keepDistance * 1.5f)
+            {
+                agent.SetDestination(playerRef.transform.position);
+            }
+            else
+            {
+                agent.ResetPath();
+            }
+            Shoot();
+        }
+        else
+        {
+            agent.updateRotation = true;
+        }
+
         if (myTarget == null)
         {
             if (transform.position.x == wayPoints[wayPointIndex].position.x && transform.position.z == wayPoints[wayPointIndex].position.z)
@@ -84,6 +125,46 @@ public class EnemyController : MonoBehaviour
         isSeek = false;
     }
 
+    private void Shoot()
+    {
+        if (canShoot)
+        {
+            RaycastHit hit;
+            Vector3 targetPoint;
+            if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 50))
+            {
+                targetPoint = hit.point;
+            }
+            else
+            {
+                targetPoint = firePoint.position + firePoint.forward * 50;
+            }
+            Debug.DrawRay(firePoint.position, firePoint.forward * 50, Color.green, 0.1f);
+
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            StartCoroutine(MoveBullet(bullet.transform, firePoint.position, targetPoint));
+            StartCoroutine(ShootCd());
+        }
+    }
+
+    IEnumerator MoveBullet(Transform bulletTransform, Vector3 startPos, Vector3 endPos)
+    {
+        float distance = Vector3.Distance(startPos, endPos);
+        float lifeTime = distance / bulletVel;
+        float timer = 0;
+        while (timer < lifeTime && bulletTransform != null)
+        {
+            timer += Time.deltaTime;
+            bulletTransform.position = Vector3.Lerp(startPos, endPos, timer / lifeTime);
+            yield return null;
+        }
+        if (bulletTransform != null)
+        {
+            Destroy(bulletTransform.gameObject);
+        }
+    }
+
+
     private IEnumerator Stay()
     {
         animator.SetBool("front", false);
@@ -99,6 +180,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    IEnumerator ShootCd()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(0.5f);
+        canShoot = true;
+    }
+
     private IEnumerator FOVRoutine()
     {
         WaitForSeconds wait = new WaitForSeconds(0.2f);
@@ -108,27 +196,22 @@ public class EnemyController : MonoBehaviour
             yield return wait;
             if (canSeePlayer && agent.enabled == true)
             {
-                model.GetComponent<ModelController>().player = playerRef.transform;
-                model.GetComponent<ModelController>().isActive = true;
-                model2.GetComponent<ModelController>().player = playerRef.transform;
-                model2.GetComponent<ModelController>().isActive = true;
                 if (Vector3.Distance(transform.position, playerRef.transform.position) <= keepDistance)
                 {
                     agent.ResetPath();
+                    agent.updateRotation = false;
                 }
                 else
                 {
+                    agent.updateRotation = true;
                     agent.SetDestination(playerRef.transform.position);
                 }
-                //agent.stoppingDistance = keepDistance;
-                //agent.SetDestination(playerRef.transform.position);
                 StopCoroutine(Stay());
             }
             else
             {
                 FieldOfViewCheck();
             }
-            
         }
     }
 
