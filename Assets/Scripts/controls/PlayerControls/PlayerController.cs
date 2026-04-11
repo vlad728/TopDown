@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private float vertical;
     private float horizontal;
     public LayerMask groundLayer;
+    public bool isDie = false;
 
     void Update()
     {

@@ -15,5 +15,15 @@ public class BulletKillScipt : MonoBehaviour
             other.gameObject.GetComponent<NavMeshAgent>().enabled = false;
             Destroy(other.gameObject.GetComponent<Rigidbody>());
         }
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<EnemyDeath>().KillEnemy();
+            Destroy(other.gameObject.GetComponent<Rigidbody>());
+            other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            other.gameObject.transform.parent.gameObject.GetComponent<PlayerController>().enabled = false;
+            other.gameObject.transform.parent.gameObject.GetComponent<ShootControls>().enabled = false;
+            other.gameObject.transform.parent.gameObject.GetComponent<AudioController>().enabled = false;
+            other.gameObject.GetComponent<PlayerAim>().enabled = false;
+        }
     }
 }

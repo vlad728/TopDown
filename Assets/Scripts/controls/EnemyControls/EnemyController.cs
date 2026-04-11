@@ -105,7 +105,14 @@ public class EnemyController : MonoBehaviour
                 StartCoroutine(SeekCoroutine());
             }
         }
+        if (playerRef.GetComponent<EnemyDeath>().isDie == true) 
+        {
+            agent.SetDestination(wayPoints[wayPointIndex].position);
+            canSeePlayer = false;
+            StopCoroutine(FOVRoutine());
+        }
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (isSeek == false)
@@ -253,20 +260,4 @@ public class EnemyController : MonoBehaviour
         agent.SetDestination(myTarget.position);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<EnemyDeath>().KillEnemy();
-            Destroy(collision.gameObject.GetComponent<Rigidbody>());
-            collision.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            collision.gameObject.transform.parent.gameObject.GetComponent<PlayerController>().enabled = false;
-            collision.gameObject.transform.parent.gameObject.GetComponent<ShootControls>().enabled = false;
-            collision.gameObject.transform.parent.gameObject.GetComponent<AudioController>().enabled = false;
-            collision.gameObject.GetComponent<PlayerAim>().enabled = false;
-            agent.SetDestination(wayPoints[wayPointIndex].position);
-            canSeePlayer = false;
-            StopCoroutine(FOVRoutine());
-        }
-    }
 }
