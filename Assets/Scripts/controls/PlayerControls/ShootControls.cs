@@ -9,6 +9,7 @@ public class ShootControls : MonoBehaviour
     private float bulletVel = 70;
     public GameObject soundPrefab;
     public Transform model;
+    public float lifeTime = 200;
 
     void Update()
     {
@@ -23,15 +24,15 @@ public class ShootControls : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 targetPoint;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 50))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime))
         {
             targetPoint = hit.point;
         }
         else
         {
-            targetPoint = firePoint.position + firePoint.forward * 50;
+            targetPoint = firePoint.position + firePoint.forward * lifeTime;
         }
-        Debug.DrawRay(firePoint.position, firePoint.forward * 50, Color.green, 0.1f);
+        Debug.DrawRay(firePoint.position, firePoint.forward * lifeTime, Color.green, 0.1f);
         
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         StartCoroutine(MoveBullet(bullet.transform, firePoint.position, targetPoint));
