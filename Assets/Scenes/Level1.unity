@@ -4804,6 +4804,7 @@ Transform:
   - {fileID: 235609282}
   - {fileID: 449758962}
   - {fileID: 1418279978}
+  - {fileID: 1790639753}
   - {fileID: 904896084}
   - {fileID: 2009889288}
   m_Father: {fileID: 0}
@@ -7759,10 +7760,10 @@ MonoBehaviour:
   model2: {fileID: 1304455458}
   playerRef: {fileID: 375598508}
   wayPoints:
-  - {fileID: 1418279978}
+  - {fileID: 1790639753}
   - {fileID: 449758962}
   - {fileID: 235609282}
-  - {fileID: 1651929633}
+  - {fileID: 1418279978}
   myTarget: {fileID: 0}
   targetMask:
     serializedVersion: 2
@@ -8151,7 +8152,7 @@ Transform:
   m_GameObject: {fileID: 1418279977}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.6, y: -2.6399999, z: -56.6}
+  m_LocalPosition: {x: -3.14, y: -2.6399999, z: -18.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10395,6 +10396,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1790639752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790639753}
+  m_Layer: 0
+  m_Name: Waypoint 3 (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1790639753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790639752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -30.6, y: -2.6399999, z: -56.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 642249331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809465935
 GameObject:
   m_ObjectHideFlags: 0
@@ -11208,7 +11240,7 @@ MonoBehaviour:
   - {fileID: 2139316788}
   - {fileID: 320260733}
   - {fileID: 449758962}
-  - {fileID: 1418279978}
+  - {fileID: 1651929633}
   myTarget: {fileID: 0}
   targetMask:
     serializedVersion: 2
@@ -12120,7 +12152,7 @@ Transform:
   m_GameObject: {fileID: 2139316787}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.4, y: -2.6399999, z: -32.3}
+  m_LocalPosition: {x: -15.1, y: -2.6399999, z: -41.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

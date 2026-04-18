@@ -175,7 +175,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Stay()
     {
         animator.SetBool("front", false);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         animator.SetBool("front", true);
         if (myTarget == null)
         {
