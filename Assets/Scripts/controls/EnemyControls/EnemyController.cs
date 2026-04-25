@@ -88,7 +88,12 @@ public class EnemyController : MonoBehaviour
 
         if (myTarget == null)
         {
-            if (transform.position.x == wayPoints[wayPointIndex].x && transform.position.z == wayPoints[wayPointIndex].z)
+            float distToWaypoint = Vector3.Distance(
+                new Vector3(transform.position.x, 0, transform.position.z),
+                new Vector3(wayPoints[wayPointIndex].x, 0, wayPoints[wayPointIndex].z)
+            );
+
+            if (!agent.pathPending && distToWaypoint <= agent.stoppingDistance + 0.5f)
             {
                 wayPointIndex++;
                 if (wayPointIndex >= wayPoints.Length)
@@ -100,7 +105,12 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (transform.position.x == myTarget.position.x && transform.position.z == myTarget.position.z)
+            float distToTarget = Vector3.Distance(
+                new Vector3(transform.position.x, 0, transform.position.z),
+                new Vector3(myTarget.position.x, 0, myTarget.position.z)
+            );
+
+            if (!agent.pathPending && distToTarget <= agent.stoppingDistance + 0.5f)
             {
                 StartCoroutine(SeekCoroutine());
             }

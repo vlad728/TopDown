@@ -4433,8 +4433,7 @@ Transform:
   m_LocalPosition: {x: -3.22, y: 3.52, z: 8.705}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1680916422}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710476530
@@ -6989,7 +6988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 318fc43affebe5d45a73fa013fda8019, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.3
+      value: -19.300001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 318fc43affebe5d45a73fa013fda8019, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7171,10 +7170,10 @@ MonoBehaviour:
   model2: {fileID: 1304455458}
   playerRef: {fileID: 375598508}
   wayPoints:
-  - {x: -3.8506273e-28, y: 7.17e-43, z: -3.850273e-28}
-  - {x: 7.17e-43, y: -3.850635e-28, z: 7.17e-43}
-  - {x: -3.850273e-28, y: 7.17e-43, z: -3.8506427e-28}
-  - {x: 7.17e-43, y: -3.850273e-28, z: 7.17e-43}
+  - {x: -34, y: 0, z: -47}
+  - {x: -7, y: 0, z: -47}
+  - {x: -7, y: 0, z: -25}
+  - {x: -34, y: 0, z: -25}
   myTarget: {fileID: 0}
   targetMask:
     serializedVersion: 2
@@ -8546,11 +8545,11 @@ Transform:
   m_GameObject: {fileID: 1680916421}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.9, y: -0.8742614, z: -42.2}
+  m_LocalPosition: {x: -33.95, y: 2.6457386, z: -47.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 642249331}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681817947
 GameObject:
@@ -10369,10 +10368,10 @@ MonoBehaviour:
   model2: {fileID: 1905965707}
   playerRef: {fileID: 375598508}
   wayPoints:
-  - {x: 3.0345502e+32, y: 1.5578053e+28, z: 64863630}
-  - {x: 1.7748062e+28, y: 2.3565287e+20, z: 9.954603e-39}
-  - {x: 9.818577e-22, y: 3.8520954e-34, z: 1.05e-43}
-  - {x: 1.326e-42, y: 0, z: 7.19e-43}
+  - {x: -7, y: 0, z: -47}
+  - {x: -7, y: 0, z: -25}
+  - {x: -34, y: 0, z: -25}
+  - {x: -34, y: 0, z: -47}
   myTarget: {fileID: 0}
   targetMask:
     serializedVersion: 2
@@ -11170,6 +11169,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1680916422}
   - {fileID: 1133499681}
   - {fileID: 1608546030}
   - {fileID: 642249331}
