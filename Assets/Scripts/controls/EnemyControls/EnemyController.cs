@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
 
     //Mapping
     public GameObject playerRef;
-    public Transform[] wayPoints;
+    public Vector3[] wayPoints;
     public Transform myTarget;
     private int wayPointIndex = 0;
     public LayerMask targetMask;
@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
         myTarget = null;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = true;
-        agent.SetDestination(wayPoints[wayPointIndex].position);
+        agent.SetDestination(wayPoints[wayPointIndex]);
         playerRef = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         StartCoroutine(Stay());
@@ -88,7 +88,7 @@ public class EnemyController : MonoBehaviour
 
         if (myTarget == null)
         {
-            if (transform.position.x == wayPoints[wayPointIndex].position.x && transform.position.z == wayPoints[wayPointIndex].position.z)
+            if (transform.position.x == wayPoints[wayPointIndex].x && transform.position.z == wayPoints[wayPointIndex].z)
             {
                 wayPointIndex++;
                 if (wayPointIndex >= wayPoints.Length)
@@ -107,7 +107,7 @@ public class EnemyController : MonoBehaviour
         }
         if (playerRef.GetComponent<EnemyDeath>().isDie == true) 
         {
-            agent.SetDestination(wayPoints[wayPointIndex].position);
+            agent.SetDestination(wayPoints[wayPointIndex]);
             canSeePlayer = false;
             StopCoroutine(FOVRoutine());
         }
@@ -179,7 +179,7 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("front", true);
         if (myTarget == null)
         {
-            agent.SetDestination(wayPoints[wayPointIndex].position);
+            agent.SetDestination(wayPoints[wayPointIndex]);
         }
         else
         {
@@ -251,7 +251,7 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         myTarget = null;
-        agent.SetDestination(wayPoints[wayPointIndex].position);
+        agent.SetDestination(wayPoints[wayPointIndex]);
     }
 
     public void Seek(Transform target)
