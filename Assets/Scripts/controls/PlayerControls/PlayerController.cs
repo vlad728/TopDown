@@ -8,13 +8,28 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     public LayerMask groundLayer;
     public bool isDie = false;
+    public Rigidbody rb;
+
+    private void Start()
+    {
+
+    }
 
     void Update()
     {
+
+    }
+
+    private void FixedUpdate()
+    {
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-
-        transform.Translate(Vector3.forward * Time.deltaTime * vertical * speed);
-        transform.Translate(Vector3.right * Time.deltaTime * horizontal * speed);
+        Vector3 movement = new Vector3(horizontal, 0, vertical);
+        if (movement != Vector3.zero)
+        {
+            movement = movement.normalized;
+        }
+        //rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
+        rb.linearVelocity = movement * speed;
     }
 }
