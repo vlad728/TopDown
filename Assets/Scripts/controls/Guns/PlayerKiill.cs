@@ -8,12 +8,12 @@ public class PlayerKiill : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyDeath>().KillEnemy();
             Destroy(other.gameObject.GetComponent<Rigidbody>());
-            other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            other.gameObject.transform.parent.gameObject.GetComponent<PlayerController>().enabled = false;
-            other.gameObject.transform.parent.gameObject.GetComponent<ShootControls>().enabled = false;
-            other.gameObject.transform.parent.gameObject.GetComponent<AudioController>().enabled = false;
-            other.gameObject.GetComponent<PlayerAim>().enabled = false;
-            other.gameObject.transform.GetChild(0).GetComponent<LineRenderer>().enabled = false;
+            other.gameObject.GetComponent<BoxCollider>().enabled = false;
+            other.gameObject.GetComponent<PlayerController>().enabled = false;
+            other.gameObject.GetComponent<ShootControls>().enabled = false;
+            other.gameObject.GetComponent<AudioController>().enabled = false;
+            other.gameObject.transform.GetChild(0).GetComponent<PlayerAim>().enabled = false;
+            other.gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<LineRenderer>().enabled = false;
         }
     }
 }

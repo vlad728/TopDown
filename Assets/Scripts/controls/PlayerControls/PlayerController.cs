@@ -12,24 +12,31 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
     void Update()
     {
-
+        if (isDie)
+        {
+            return;
+        }
+        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
     }
 
     private void FixedUpdate()
     {
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
-        Vector3 movement = new Vector3(horizontal, 0, vertical);
-        if (movement != Vector3.zero)
+        if (isDie)
         {
-            movement = movement.normalized;
+            return;
         }
-        //rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
+        Vector3 movement = new Vector3(horizontal, 0, vertical);
+        if (movement.magnitude > 1)
+        {
+            movement.Normalize();
+        }
         rb.linearVelocity = movement * speed;
     }
 }

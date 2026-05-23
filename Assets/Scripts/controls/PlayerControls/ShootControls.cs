@@ -9,7 +9,7 @@ public class ShootControls : MonoBehaviour
     private float bulletVel = 70;
     public GameObject soundPrefab;
     public Transform model;
-    public float lifeTime = 200;
+    public float lifeTime = 1000;
 
     void Update()
     {
