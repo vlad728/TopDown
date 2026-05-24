@@ -10,6 +10,7 @@ public class ShootControls : MonoBehaviour
     public GameObject soundPrefab;
     public Transform model;
     public float lifeTime = 1000;
+    public LayerMask whatToHit;
 
     void Update()
     {
@@ -24,7 +25,7 @@ public class ShootControls : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 targetPoint;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime, whatToHit))
         {
             targetPoint = hit.point;
         }

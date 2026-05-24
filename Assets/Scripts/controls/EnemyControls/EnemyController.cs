@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     public GameObject bulletPrefab;
     private float bulletVel = 70;
     private bool canShoot = true;
+    public LayerMask whatToHit;
+    private float lifeTime = 1000f;
 
     //Models
     public GameObject model;
@@ -148,15 +150,15 @@ public class EnemyController : MonoBehaviour
         {
             RaycastHit hit;
             Vector3 targetPoint;
-            if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 50))
+            if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime, whatToHit))
             {
                 targetPoint = hit.point;
             }
             else
             {
-                targetPoint = firePoint.position + firePoint.forward * 50;
+                targetPoint = firePoint.position + firePoint.forward * lifeTime;
             }
-            Debug.DrawRay(firePoint.position, firePoint.forward * 50, Color.green, 0.1f);
+            Debug.DrawRay(firePoint.position, firePoint.forward * lifeTime, Color.green, 0.1f);
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             StartCoroutine(MoveBullet(bullet.transform, firePoint.position, targetPoint));
@@ -239,13 +241,15 @@ public class EnemyController : MonoBehaviour
         if (rangeChecks.Length != 0)
         {
             Transform target = rangeChecks[0].transform;
+            Vector3 enemyEyeHeight = transform.position + Vector3.up * 1.5f;
+            Vector3 targetBody = target.position + Vector3.up * 1.5f;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
+                if (!Physics.Raycast(enemyEyeHeight, directionToTarget, distanceToTarget, obstructionMask))
                     canSeePlayer = true;
                 else
                     canSeePlayer = false;
