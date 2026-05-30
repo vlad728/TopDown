@@ -25,7 +25,7 @@ public class ShootControls : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 targetPoint;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime, whatToHit))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, lifeTime, whatToHit, QueryTriggerInteraction.Ignore))
         {
             targetPoint = hit.point;
         }
