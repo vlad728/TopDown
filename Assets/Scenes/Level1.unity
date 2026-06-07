@@ -2723,6 +2723,7 @@ GameObject:
   - component: {fileID: 375598515}
   - component: {fileID: 375598514}
   - component: {fileID: 375598513}
+  - component: {fileID: 375598516}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2859,6 +2860,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.3529358, y: 4.829351, z: 1.298645}
   m_Center: {x: 0.1764679, y: 2.5647323, z: -0.14932251}
+--- !u!114 &375598516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375598508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf6ec58321bc6a4eae2132de1191720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalLight: {fileID: 952321276}
+  OnOff: 0
 --- !u!1 &398648319
 GameObject:
   m_ObjectHideFlags: 0
@@ -7470,7 +7485,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7513,7 +7528,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 7153
+  m_ColorTemperature: 7049
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -8190,6 +8205,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDie: 0
   animator: {fileID: 0}
+--- !u!1 &994992848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994992850}
+  - component: {fileID: 994992849}
+  m_Layer: 0
+  m_Name: ToggleLight
+  m_TagString: Light
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &994992849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994992848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.132103, y: 1, z: 1}
+  m_Center: {x: 0.19561768, y: 0, z: 0}
+--- !u!4 &994992850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994992848}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.65, y: 2.3, z: -50.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011485561
 GameObject:
   m_ObjectHideFlags: 0
@@ -13878,3 +13946,4 @@ SceneRoots:
   - {fileID: 2126867367}
   - {fileID: 1874351507}
   - {fileID: 1329940771}
+  - {fileID: 994992850}
